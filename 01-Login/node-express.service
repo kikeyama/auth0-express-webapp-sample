@@ -1,0 +1,12 @@
+[Unit]
+Description=Load dump capture kernel
+
+[Service]
+Type=simple
+ExecStart=/home/ubuntu/auth0-express-webapp-sample/01-Login/start-node-express.sh
+RemainAfterExit=yes
+User=ubuntu
+Group=ubuntu
+
+[Install]
+WantedBy=multi-user.target
