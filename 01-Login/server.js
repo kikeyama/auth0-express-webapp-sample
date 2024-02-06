@@ -21,6 +21,9 @@ const config = {
   authRequired: false,
   auth0Logout: true,
   idpLogout: true,
+  routes: {
+    login: false,
+  },
 };
 
 const port = process.env.PORT || 3000;
@@ -49,6 +52,21 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', router);
+
+let connection = 'Username-Password-Authentication';
+
+app.get('/login', (req, res) => {
+    if (req.query.connection) {
+      connection = req.query.connection;
+    }
+    res.oidc.login({
+      returnTo: '/profile',
+      authorizationParams: {
+        connection,
+      },
+    });
+  }
+);
 
 // Catch 404 and forward to error handler
 app.use(function (req, res, next) {
